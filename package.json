@@ -12,7 +12,7 @@
     "build:e2e": "vite build --mode e2e",
     "build:demo": "tsc && vite build --config vite.demo.config",
     "typecheck": "tsc --noEmit --project tsconfig.app.json",
-    "preview": "vite preview",
+    "preview": "npm run build && wrangler dev",
     "lint:apply": "eslint **/*.{mjs,ts,tsx} --fix",
     "lint": "eslint **/*.{mjs,ts,tsx}",
     "prettier:apply": "prettier --config ./.prettierrc.json --write --list-different \"**/*.{mjs,js,json,ts,tsx,css,md,html}\"",
@@ -24,7 +24,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prepare": "husky",
-    "update-changelog": "gh api 'repos/{owner}/{repo}/releases' --paginate -q '.[] | \"## \\(.tag_name) - \\(.published_at[:10])\\n\\n\\(.body)\\n\"' > CHANGELOG.md"
+    "update-changelog": "gh api 'repos/{owner}/{repo}/releases' --paginate -q '.[] | \"## \\(.tag_name) - \\(.published_at[:10])\\n\\n\\(.body)\\n\"' > CHANGELOG.md",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
@@ -97,6 +98,7 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.42.4",
     "@eslint/js": "^9.22.0",
     "@inquirer/prompts": "^8.2.0",
     "@playwright/mcp": "^0.0.76",
@@ -135,6 +137,7 @@
     "vite-plugin-pwa": "^1.2.0",
     "vite-plugin-simple-html": "^1.0.1",
     "vitest": "^4.1.0",
-    "vitest-browser-react": "^2.0.5"
+    "vitest-browser-react": "^2.0.5",
+    "wrangler": "^4.106.0"
   }
 }
